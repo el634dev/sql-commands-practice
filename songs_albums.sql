@@ -68,7 +68,7 @@ FROM Albums
 WHERE year_published BETWEEN 1970 AND 1980;
 
 /*
- * TODO: Find all songs on albums published between 1970 and 1980. 
+ * Find all songs on albums published between 1970 and 1980. 
  *(Hint: Use a table join.)
  */
  SELECT name
