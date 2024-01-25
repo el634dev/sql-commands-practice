@@ -8,9 +8,9 @@
  */
 
 CREATE TABLE Songs (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name VARCHAR(70) NOT NULL,
-    album_id INTEGER FOREIGN KEY REFERENCES Albums(id)
+    id INT PRIMARY KEY AUTOINCREMENT,
+    name VARCHAR(70) NOT NULL, --Text
+    FOREIGN KEY (album_id) REFERENCES Album(id)
 )
 
 -- Table called Albums
@@ -26,12 +26,12 @@ CREATE TABLE Albums (
  */
  
  INSERT INTO Songs 
-    (name, album_id)
+    (id, name, album_id)
 VALUES
-    ('Come Together', 2)
-    ('Hotel California', 3)
-    ('Born in the U.S.A', 4)
-    ('Glory Days', 4)
+    (1, 'Come Together', 2);
+    (2, 'Hotel California', 3);
+    (3, 'Born in the U.S.A', 4);
+    (4, 'Glory Days', 4);
 
  -- Insert data into Albums
 INSERT INTO Albums
@@ -50,8 +50,7 @@ VALUES
 
 
 /* Queries */
-SELECT * FROM Songs;
-
+--SELECT * FROM Songs;
 SELECT * FROM Albums;
 
 /* 
@@ -74,7 +73,7 @@ WHERE year_published BETWEEN 1970 AND 1980;
  */
  SELECT name
  FROM Albums
- JOIN Albums on Songs.album_id = Albums.id 
+ JOIN Albums ON Songs.album_id = Albums.id 
  WHERE year_published BETWEEN 1970 AND 1980;
 
 /*
@@ -82,4 +81,4 @@ WHERE year_published BETWEEN 1970 AND 1980;
  */
 SELECT name
 FROM Albums
-WHERE Albums.name LIKE '%Caliornia%';
+WHERE name LIKE '%Caliornia%';
