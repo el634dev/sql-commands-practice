@@ -35,7 +35,7 @@ VALUES
     ('Glory Days', 4),
     ('182', 5);
 
- -- Insert data into Albums
+-- Insert data into Albums
 INSERT INTO Albums
     (album_name, artist, year_published)
 VALUES
@@ -43,8 +43,7 @@ VALUES
     ('Abbey Road', 'The Beatles', 1969),
     ('Hotel California', 'Eagles', 1976),
     ('Born in the U.S.A.', 'Bruce Springsteen', 1984),
-    ('California', 'Blink-182', 2016)
-;
+    ('California', 'Blink-182', 2016);
 
 /* Required to get result in column format */
 .headers on
