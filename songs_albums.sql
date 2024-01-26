@@ -7,16 +7,17 @@
  * Note that album - song is a one-to-many relationship, so no bridge table is needed.
  */
 
-CREATE TABLE Songs (
-    id INT PRIMARY KEY AUTOINCREMENT,
-    name VARCHAR(70) NOT NULL, --Text
-    FOREIGN KEY (album_id) REFERENCES Album(id)
-)
+CREATE TABLE Songs(
+    song_id INTEGER PRIMARY KEY,
+    song_name VARCHAR(70) NOT NULL UNIQUE,
+    album_id INTEGER,
+    FOREIGN KEY (album_id) REFERENCES Albums(id)
+);
 
 -- Table called Albums
-CREATE TABLE Albums (
+CREATE TABLE Albums(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name VARCHAR(70) NOT NULL,
+    album_name VARCHAR(70) NOT NULL,
     artist VARCHAR(70) NOT NULL,
     year_published INTEGER NOT NULL
 );
@@ -26,16 +27,17 @@ CREATE TABLE Albums (
  */
  
  INSERT INTO Songs 
-    (id, name, album_id)
+    (song_name, album_id)
 VALUES
-    (1, 'Come Together', 2);
-    (2, 'Hotel California', 3);
-    (3, 'Born in the U.S.A', 4);
-    (4, 'Glory Days', 4);
+    ('Time', 1),
+    ('Come Together', 2),
+    ('Hotel California', 3),
+    ('Glory Days', 4),
+    ('182', 5);
 
  -- Insert data into Albums
 INSERT INTO Albums
-    (name, artist, year_published)
+    (album_name, artist, year_published)
 VALUES
     ('The Dark Side of the Moon', 'Pink Floyd', 1973),
     ('Abbey Road', 'The Beatles', 1969),
@@ -48,22 +50,22 @@ VALUES
 .headers on
 .mode column
 
-
 /* Queries */
---SELECT * FROM Songs;
-SELECT * FROM Albums;
+/* Commented out for readiblity in the Command Line */
+-- SELECT * FROM Songs;
+-- SELECT * FROM Albums;
 
 /* 
  * Write a table join query to construct a table of Song Name : Album Name
  */
-SELECT Songs.name, Albums.name
-FROM Songs, Album
+SELECT song_name, album_name
+FROM Songs
 JOIN Albums ON Songs.album_id = Albums.id;
 
 /*
  * Find all albums published between 1970 and 1980.
  */
-SELECT *
+SELECT album_name, year_published
 FROM Albums
 WHERE year_published BETWEEN 1970 AND 1980;
 
@@ -71,14 +73,15 @@ WHERE year_published BETWEEN 1970 AND 1980;
  * Find all songs on albums published between 1970 and 1980. 
  *(Hint: Use a table join.)
  */
- SELECT name
- FROM Albums
- JOIN Albums ON Songs.album_id = Albums.id 
- WHERE year_published BETWEEN 1970 AND 1980;
+SELECT song_name, album_name, year_published
+FROM Albums
+JOIN Songs ON Songs.album_id = Albums.id
+WHERE year_published BETWEEN 1970 AND 1980;
 
 /*
  * Find all songs on albums with names containing 'California'.
  */
-SELECT name
+SELECT song_name
 FROM Albums
-WHERE name LIKE '%Caliornia%';
+JOIN Songs ON Songs.album_id = Albums.id
+WHERE album_name LIKE '%California%';
